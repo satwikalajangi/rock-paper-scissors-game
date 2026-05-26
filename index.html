@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Rock Paper Scissors</title>
+  <meta charset="UTF-8">
+  <style>
+   
+/* This forces the yellow banner itself to sit in the center of the screen */
+.header-container {
+  display: flex;
+  justify-content: center; 
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* This styles the yellow box and aligns the items inside it */
+h1 {
+  background-color: #ffeb00;
+  padding: 30px 50px;
+  border-radius: 25px;
+  font-family: 'Times New Roman', serif;
+  font-size: 48px;
+  font-weight: bold;
+  margin: 0;
+  
+  /* Stacks the text and emojis vertically, centered perfectly */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.rps {
+  line-height: 1.2;
+}
+
+/* This places the emojis right over the bottom edge */
+.emoji-container {
+  font-size: 32px;
+  position: absolute;
+  bottom: -22px; /* Pulls them down to sit perfectly on the border line */
+  white-space: nowrap;
+}
+
+ .buttons {
+    display: flex; /* used to fit to any screen*/
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .buttons {
+    padding: 10px 18px;
+    border: 1px;
+    border-radius: 8px;
+  }
+  .rps {
+    font-size: 40px;
+    font-weight: bold;
+   padding: 10px 5px 10px;
+   border-radius: 10px;
+    color: black;
+    text-align: center;
+    background-color: yellow;
+    display: inline-block;
+  }
+
+  .rck {
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+    background-color:#2563EB;
+  }
+
+  .pr {
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+    background-color:#059669;
+  }
+
+  .sr {
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+    background-color:#DC2626;
+  }
+
+  .rs {
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+    background-color:#a5dc26;
+  }
+  .my-name {
+  position: fixed;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+<div class="header-container">
+  <h1>
+    <span class="rps">Rock Paper Scissors</span>
+    <div class="emoji-container">😎 🤪 🙄</div>
+  </h1>
+</div>
+  <p class="my-name">ALAJANGI SATWIK SUNDAR</p>
+
+  <div class="buttons">
+ 
+
+
+  <button class="rck" onclick="
+ game('rock');
+  ">
+    Rock 😎
+  </button>
+<button class="pr" onclick="
+ game('paper');
+  ">
+    Paper 🤪
+  </button>
+
+  <button class="sr" onclick="
+ game('scissors');
+  ">
+    Scissors 🙄
+
+
+  </button>
+
+  <button class="rs" onclick="
+score.wins = 0;
+score.losses = 0;
+score.tie= 0;
+  ">
+   🫣reset score🫣
+
+
+  </button>
+
+  </div>
+<script>
+
+  /* creating objects */
+  const score = {
+    wins:0,
+    losses : 0,
+    tie: 0,
+  }
+/* function with attributes */
+  function game(playMove){
+
+pickComputerMove();
+console.log(computerguess);
+let result ='';
+if(playMove === 'scissors'){
+if ( computerguess === 'rock'
+){
+  result='You loose';
+} else if(
+  computerguess=== 'paper'
+){
+  result='you win';
+} else if(
+  computerguess === 'scissors'
+){
+
+result='tie';
+}}
+
+
+   else if(playMove === 'rock'){
+
+if ( computerguess === 'rock'
+){
+  result ='tie';
+} else if(
+  computerguess=== 'paper'
+){
+  result ='you loose';
+} else if(
+  computerguess=== 'scissors'
+){
+  result ='you win';
+}
+
+
+  } else if(playMove === 'paper'){
+ 
+if ( computerguess === 'paper'
+){
+  result='tie';
+} else if(
+  computerguess=== 'rock'
+){
+  result='you win';
+} else if(
+  computerguess === 'scissors'
+){
+
+result='You loose';
+}}
+
+if(result=== 'you win'){
+  score.wins += 1;
+} else if( result=== 'you loose'){
+  score.losses += 1;
+} else if(result==='tie'){
+  score.tie += 1;
+}
+
+  
+  alert(`You picked ${playMove}. Computer picked ${computerguess}.${result}.
+wins.${score.wins}.   losses.${score.losses}.   tie.${score.tie}`)
+  }  
+
+  /* Function - used to reuse the code*/
+  function pickComputerMove(){
+     const Randomnumber = Math.random();
+ 
+ if(Randomnumber >=0 && Randomnumber < 1/3){
+  computerguess='rock';
+ } else if(Randomnumber >=1/3 && Randomnumber < 2/3 ){
+computerguess='paper';
+}
+else if(Randomnumber >=2/3 && Randomnumber < 1 ){
+computerguess='scissors'; }
+return computerguess;
+  }
+</script>
+</body>
+</html>
