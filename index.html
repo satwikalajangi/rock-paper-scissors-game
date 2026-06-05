@@ -42,17 +42,7 @@ h1 {
   white-space: nowrap;
 }
 
- .buttons {
-    display: flex; /* used to fit to any screen*/
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
-  }
-  .buttons {
-    padding: 10px 18px;
-    border: 1px;
-    border-radius: 8px;
-  }
+
   .rps {
     font-size: 40px;
     font-weight: bold;
@@ -89,17 +79,78 @@ h1 {
   }
 
   .rs {
-    font-size: 18px;
-    font-weight: bold;
-    color: black;
-    text-align: center;
-    background-color:#a5dc26;
-  }
+  font-size: 18px;
+  font-weight: bold;
+  color: black;
+  text-align: center;
+  background-color: #a5dc26;
+  padding: 10px 18px;
+  border: 1px solid black;
+  border-radius: 8px;
+  cursor: pointer;
+}
   .my-name {
   position: fixed;
   bottom: 10px;
   width: 100%;
   text-align: center;
+}
+
+.js-score {
+  font-size: 24px;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: black;
+  text-align: center;
+  background-color: wheat;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Centers row 1 */
+.buttons-container {
+  display: flex;
+  justify-content: center; 
+  gap: 15px;
+  margin-top: 30px;
+}
+
+/* Centers row 2 */
+.score-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Centers row 3 */
+.reset-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+/* Containers to handle the centering layout */
+.result-container, .moves-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+/* Styles to handle font weight and typography */
+.js-result {
+  font-size: 26px;
+  font-weight: bold; /* Makes it bold */
+  text-transform: capitalize; /* Automatically fixes 'you win' to 'You win' */
+  font-family: Arial, sans-serif;
+  margin: 0;
+}
+
+.js-moves {
+  font-size: 20px;
+  font-weight: bold; /* Makes it bold */
+  font-family: Arial, sans-serif;
+  margin: 0;
+  color: #444444; /* Subtle dark gray to distinguish it from the result */
 }
 </style>
 </head>
@@ -112,7 +163,7 @@ h1 {
 </div>
   <p class="my-name">ALAJANGI SATWIK SUNDAR</p>
 
-  <div class="buttons">
+  <div class="buttons-container">
  
 
 
@@ -131,30 +182,45 @@ h1 {
  game('scissors');
   ">
     Scissors 🙄
+</button> </div>
+ <div class="score-container"> 
+  <p class = "js-score"></p>
+  </div>
 
-
-  </button>
-
+<div class="reset-container">
   <button class="rs" onclick="
 score.wins = 0;
 score.losses = 0;
 score.tie= 0;
+localStorage.removeItem('score');
+document.querySelector('.js-score').innerHTML = 'wins.0.   losses.0.   tie.0';
   ">
    🫣reset score🫣
+</button></div>
+<div class="result-container">
+  <p class="js-result"></p>
+</div>
 
+<div class="moves-container">
+  <p class="js-moves"></p>
+</div>
 
-  </button>
-
-  </div>
+  
 <script>
 
   /* creating objects */
-  const score = {
-    wins:0,
-    losses : 0,
-    tie: 0,
+  let score = JSON.parse( localStorage.getItem("score"));
+
+  if(score===null){
+    score = {
+      wins :0,
+      losses : 0,
+      tie : 0,
+    };
   }
-/* function with attributes */
+  updateScore();
+  
+  /* function with attributes */
   function game(playMove){
 
 pickComputerMove();
@@ -215,10 +281,11 @@ if(result=== 'you win'){
 } else if(result==='tie'){
   score.tie += 1;
 }
-
+document.querySelector(".js-result").innerHTML = result;
+document.querySelector(".js-moves").innerHTML = ` You Picked ${playMove} - Computer Picked ${computerguess}`;
+localStorage.setItem("score",JSON.stringify(score));
+updateScore();
   
-  alert(`You picked ${playMove}. Computer picked ${computerguess}.${result}.
-wins.${score.wins}.   losses.${score.losses}.   tie.${score.tie}`)
   }  
 
   /* Function - used to reuse the code*/
@@ -233,6 +300,10 @@ computerguess='paper';
 else if(Randomnumber >=2/3 && Randomnumber < 1 ){
 computerguess='scissors'; }
 return computerguess;
+  }
+  function updateScore(){
+
+    document.querySelector(".js-score").innerHTML = `wins.${score.wins}.   losses.${score.losses}.   tie.${score.tie}`;
   }
 </script>
 </body>
